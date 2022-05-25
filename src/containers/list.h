@@ -102,7 +102,6 @@ class List {
         List<value_type> tmp(other);
         internal::uninitialized_fill(elements, space, tmp.elements);
         internal::destroy(tmp.elements, tmp.space);
-        
 
         return *this;
     }
@@ -156,7 +155,7 @@ class List {
 
         *last = value;
         ++last;
-    }                
+    }
 
     ~List() { delete[] elements; }
 
