@@ -1,4 +1,4 @@
-# Python Style C++
+# C++ Python Style Library
 
 A C++ library containing a collection of functions and containers similar to how the Python language is structured.
 
