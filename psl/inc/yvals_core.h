@@ -4,18 +4,23 @@
 // SPDX-License-Identifier: MIT
 
 #pragma once
-#ifndef YVALS_CORE_H_
-#define YVALS_CORE_H_
+#ifndef PSL_YVALS_CORE_H_
+#define PSL_YVALS_CORE_H_
 
 #ifndef __cplusplus
-#pragma message(__FILE__ "("__LINE__"): PSL: Unexpected compiler, expected C++ compiler")
+#define PSL_STRINGIZE_(S) #S
+#define PSL_STRINGIZE(S) PSL_STRINGIZE_(S)
+#pragma message(__FILE__ "(" PSL_STRINGIZE(__LINE__) "): PSL: Unexpected compiler, expected C++ compiler.")
 #error Error in C++ PSL usage
-#endif // __cplusplus
+#endif  // __cplusplus
 
-#if !_HAS_CXX20
-#pragma message(__FILE__ "("__LINE__"): PSL: Unexpected compiler, expected C++20 compiler")
+// PSL requires C++20 or later.
+#if !(__cplusplus >= 201703L)
+#define PSL_STRINGIZE_(S) #S
+#define PSL_STRINGIZE(S) PSL_STRINGIZE_(S)
+#pragma message(__FILE__ "(" PSL_STRINGIZE(__LINE__) "): PSL: Unexpected compiler, expected C++20 compiler")
 #error Error in C++ PSL usage
-#endif // !_HAS_CXX20
+#endif
 
 #define PSL_VERSION_MAJOR 0
 #define PSL_VERSION_MINOR 1
@@ -30,8 +35,8 @@
 #ifdef ENABLE_PSL_INTERNAL_DEBUG
 #include <cassert>
 #define PSL_INTERNAL_STATIC_ASSERT(...) static_assert(__VA_ARGS__, #__VA_ARGS__)
-#else // ^^^ ENABLE_PSL_INTERNAL_DEBUG ^^^ // vvv !ENABLE_PSL_INTERNAL_DEBUG vvv
+#else  // ^^^ ENABLE_PSL_INTERNAL_DEBUG ^^^ // vvv !ENABLE_PSL_INTERNAL_DEBUG vvv
 #define PSL_INTERNAL_STATIC_ASSERT(...)
-#endif // ENABLE_PSL_INTERNAL_DEBUG
+#endif  // ENABLE_PSL_INTERNAL_DEBUG
 
-#endif // YVALS_CORE_H_
+#endif  // PSL_YVALS_CORE_H_
