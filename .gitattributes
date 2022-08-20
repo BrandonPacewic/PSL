@@ -1,5 +1,10 @@
 # Copyright (c) Brandon Pacewic
 # SPDX-License-Identifier: MIT
 
-# Ensure that all C++ headers are counted as C++ and not C
+# Disable CRLF-mapping for all files
+* -text
+
+# Ensure that all C++ are properly detected
+/psl/inc/**
+/psl/src/**
 *.h linguist-language=C++
