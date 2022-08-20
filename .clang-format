@@ -5,6 +5,7 @@
 Language: Cpp
 BasedOnStyle: Google
 AccessModifierOffset: -4
+AlignTrailingComments: false
 AllowShortFunctionsOnASingleLine: Empty
 ColumnLimit: 120
 IndentWidth: 4
