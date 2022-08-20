@@ -1,5 +1,10 @@
+# Copyright (c) Brandon Pacewic
+# SPDX-License-Identifier: MIT
+
+
 Language: Cpp
 BasedOnStyle: Google
 AccessModifierOffset: -4
+AllowShortFunctionsOnASingleLine: Empty
 ColumnLimit: 120
 IndentWidth: 4

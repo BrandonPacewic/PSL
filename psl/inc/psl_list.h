@@ -6,7 +6,7 @@
 #pragma once
 #ifndef PSL_LIST_H_
 #define PSL_LIST_H_
-#include <yvals_core.h>
+#include <psl_yvals_core.h>
 
 #include <cstddef>
 #include <memory>
@@ -14,8 +14,7 @@
 PSL_BEGIN
 
 template <class ForwardIterator, class OutputIterator>
-OutputIterator copy(ForwardIterator first, ForwardIterator last,
-                    OutputIterator result) {
+OutputIterator copy(ForwardIterator first, ForwardIterator last, OutputIterator result) {
     for (; first != last; ++first, ++result) {
         *result = *first;
     }
@@ -32,10 +31,10 @@ void destroy(ForwardIterator first, ForwardIterator last) {
 
 template <class Tp, class Alloc = std::allocator<Tp>>
 class List {
-   private:
+private:
     using Alty_traits = typename Alloc::template rebind<Tp>::other;
 
-   public:
+public:
     using value_type = Tp;
     using allocator_type = Alloc;
     using pointer = typename Alty_traits::pointer;
@@ -74,27 +73,49 @@ class List {
         return *this;
     }
 
-    pointer begin() noexcept { return elements; }
+    pointer begin() noexcept {
+        return elements;
+    }
 
-    const_pointer begin() const noexcept { return elements; }
+    const_pointer begin() const noexcept {
+        return elements;
+    }
 
-    pointer end() noexcept { return space; }
+    pointer end() noexcept {
+        return space;
+    }
 
-    const_pointer end() const noexcept { return space; }
+    const_pointer end() const noexcept {
+        return space;
+    }
 
-    reference front() noexcept { return *begin(); }
+    reference front() noexcept {
+        return *begin();
+    }
 
-    const_reference front() const noexcept { return *begin(); }
+    const_reference front() const noexcept {
+        return *begin();
+    }
 
-    reference back() noexcept { return *(end() - 1); }
+    reference back() noexcept {
+        return *(end() - 1);
+    }
 
-    const_reference back() const noexcept { return *(end() - 1); }
+    const_reference back() const noexcept {
+        return *(end() - 1);
+    }
 
-    size_type size() const noexcept { return last - elements; }
+    size_type size() const noexcept {
+        return last - elements;
+    }
 
-    size_type capacity() const noexcept { return space - elements; }
+    size_type capacity() const noexcept {
+        return space - elements;
+    }
 
-    bool empty() const noexcept { return size() == 0; }
+    bool empty() const noexcept {
+        return size() == 0;
+    }
 
     void reserve(size_type newalloc) {
         if (newalloc <= capacity()) {
@@ -102,18 +123,21 @@ class List {
         }
 
         List<value_type, allocator_type> tmp{newalloc, alloc};
-        
     }
 
-    ~List() { delete[] elements; }
+    ~List() {
+        delete[] elements;
+    }
 
-    reference operator[](const size_type& i) noexcept { return elements[i]; }
+    reference operator[](const size_type& i) noexcept {
+        return elements[i];
+    }
 
     const_reference operator[](const size_type& i) const noexcept {
         return elements[i];
     }
 
-   private:
+private:
     pointer elements;
     pointer space;
     pointer last;

@@ -2,8 +2,8 @@
 # SPDX-License-Identifier: MIT
 
 set(HEADERS
-    ${CMAKE_CURRENT_LIST_DIR}/inc/List
-    ${CMAKE_CURRENT_LIST_DIR}/inc/yvals_core.h
+    ${CMAKE_CURRENT_LIST_DIR}/inc/psl_list.h
+    ${CMAKE_CURRENT_LIST_DIR}/inc/psl_yvals_core.h
 )
 
 foreach(header ${HEADERS})

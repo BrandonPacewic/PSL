@@ -13,4 +13,5 @@ add_subdirectory(psl)
 
 if(BUILD_TESTING)
     add_subdirectory(tests)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DENABLE_PSL_INTERNAL_DEBUG")
 endif()

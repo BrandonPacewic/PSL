@@ -35,7 +35,8 @@
 #ifdef ENABLE_PSL_INTERNAL_DEBUG
 #include <cassert>
 #define PSL_INTERNAL_STATIC_ASSERT(...) static_assert(__VA_ARGS__, #__VA_ARGS__)
-#else  // ^^^ ENABLE_PSL_INTERNAL_DEBUG ^^^ // vvv !ENABLE_PSL_INTERNAL_DEBUG vvv
+#else  // ^^^ ENABLE_PSL_INTERNAL_DEBUG ^^^ // vvv !ENABLE_PSL_INTERNAL_DEBUG
+       // vvv
 #define PSL_INTERNAL_STATIC_ASSERT(...)
 #endif  // ENABLE_PSL_INTERNAL_DEBUG
 
