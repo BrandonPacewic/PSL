@@ -8,140 +8,48 @@
 #define PSL_LIST_H_
 #include <psl_yvals_core.h>
 
-#include <cstddef>
-#include <memory>
+#include <cstdint>
+#include <vector>
 
 PSL_BEGIN
 
-template <class ForwardIterator, class OutputIterator>
-OutputIterator copy(ForwardIterator first, ForwardIterator last, OutputIterator result) {
-    for (; first != last; ++first, ++result) {
-        *result = *first;
-    }
-
-    return result;
-}
-
-template <class ForwardIterator>
-void destroy(ForwardIterator first, ForwardIterator last) {
-    for (; first != last; ++first) {
-        first->~Ty();
-    }
-}
-
-template <class Tp, class Alloc = std::allocator<Tp>>
-class List {
-private:
-    using Alty_traits = typename Alloc::template rebind<Tp>::other;
-
+template <class Tp>
+class list : public std::vector<Tp> {
 public:
-    using value_type = Tp;
-    using allocator_type = Alloc;
-    using pointer = typename Alty_traits::pointer;
-    using const_pointer = typename Alty_traits::const_pointer;
-    using reference = Tp&;
-    using const_reference = const Tp&;
-    using size_type = std::size_t;
-    using difference_type = typename Alty_traits::difference_type;
+    using std::vector<Tp>::vector;
+    using value_type = typename std::vector<Tp>::value_type;
+    using size_type = typename std::vector<Tp>::size_type;
+    using reference = typename std::vector<Tp>::reference;
+    using const_reference = typename std::vector<Tp>::const_reference;
+    using iterator = typename std::vector<Tp>::iterator;
+    using const_iterator = typename std::vector<Tp>::const_iterator;
 
-    List(size_type n = size_type(), const_reference value = value_type(), const allocator_type alloc = allocator_type())
-        : alloc{alloc} {
-        elements = allocator_type::allocate(n);
-
-        try {
-            std::uninitialized_fill_n(elements, elements + n, value);
-            space = last = elements + n;
-        } catch (...) {
-            allocator_type::deallocate(elements, n);
-            throw;
-        }
-    }
-
-    List(const List& other) = delete;
-
-    List(List&& other) : alloc{other.alloc}, elements{other.elements}, space{other.space}, last{other.last} {
-        other.elements = other.space = other.last = nullptr;
-    }
-
-    List& operator=(const List& other) {
-        if (this == &other) {
-            return *this;
-        }
-
-        List tmp{other};
-        swap(*this, tmp);
+    list& operator+=(const Tp& t) {
+        this->push_back(t);
         return *this;
     }
 
-    pointer begin() noexcept {
-        return elements;
-    }
+    reference operator[](const size_type& i) {
+        constexpr uint8_t invert_list_cutoff = 0;
 
-    const_pointer begin() const noexcept {
-        return elements;
-    }
-
-    pointer end() noexcept {
-        return space;
-    }
-
-    const_pointer end() const noexcept {
-        return space;
-    }
-
-    reference front() noexcept {
-        return *begin();
-    }
-
-    const_reference front() const noexcept {
-        return *begin();
-    }
-
-    reference back() noexcept {
-        return *(end() - 1);
-    }
-
-    const_reference back() const noexcept {
-        return *(end() - 1);
-    }
-
-    size_type size() const noexcept {
-        return last - elements;
-    }
-
-    size_type capacity() const noexcept {
-        return space - elements;
-    }
-
-    bool empty() const noexcept {
-        return size() == 0;
-    }
-
-    void reserve(size_type newalloc) {
-        if (newalloc <= capacity()) {
-            return;
+        /// Python inverse list access through negative indices.
+        if (i < invert_list_cutoff) {
+            return this->at(this->size() - i - 1);
         }
 
-        List<value_type, allocator_type> tmp{newalloc, alloc};
+        return this->at(i);
     }
 
-    ~List() {
-        delete[] elements;
-    }
+    const_reference operator[](const size_type& i) const {
+        constexpr uint8_t invert_list_cutoff = 0;
 
-    reference operator[](const size_type& i) noexcept {
-        return elements[i];
-    }
+        /// Python inverse list access through negative indices.
+        if (i < invert_list_cutoff) {
+            return this->at(this->size() - i - 1);
+        }
 
-    const_reference operator[](const size_type& i) const noexcept {
-        return elements[i];
+        return this->at(i);
     }
-
-private:
-    pointer elements;
-    pointer space;
-    pointer last;
-    allocator_type alloc;
 };
 
 PSL_END
