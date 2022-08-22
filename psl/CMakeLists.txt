@@ -3,6 +3,7 @@
 
 set(HEADERS
     ${CMAKE_CURRENT_LIST_DIR}/inc/psl_list.h
+    ${CMAKE_CURRENT_LIST_DIR}/inc/psl_print.h
     ${CMAKE_CURRENT_LIST_DIR}/inc/psl_yvals_core.h
 )
 

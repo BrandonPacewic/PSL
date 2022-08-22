@@ -20,7 +20,7 @@
 #if !(__cplusplus >= 201703L)
 #pragma message(__FILE__ "(" PSL_STRINGIZE(__LINE__) "): PSL: Unexpected compiler, expected C++20 compiler")
 #error Error in C++ PSL usage; Unsupported compiler.
-#endif // !(__cplusplus >= 201703L)
+#endif  // !(__cplusplus >= 201703L)
 
 #define PSL_VERSION_MAJOR 0
 #define PSL_VERSION_MINOR 1
