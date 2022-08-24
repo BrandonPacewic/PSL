@@ -24,15 +24,15 @@ public:
     using iterator = typename std::vector<Tp>::iterator;
     using const_iterator = typename std::vector<Tp>::const_iterator;
 
-    list& operator+=(const Tp& t) {
-        this->push_back(t);
+    list& operator+=(const value_type& val) { // push_back by += operator
+        this->push_back(val);
         return *this;
     }
 
-    reference operator[](const size_type& i) {
+    [[nodiscard]] reference operator[](const size_type& i) {
         constexpr uint8_t invert_list_cutoff = 0;
 
-        /// Python inverse list access through negative indices.
+        // Python inverse list access through negative indices.
         if (i < invert_list_cutoff) {
             return this->at(this->size() - i - 1);
         }
@@ -40,15 +40,24 @@ public:
         return this->at(i);
     }
 
-    const_reference operator[](const size_type& i) const {
+    [[nodiscard]] const_reference operator[](const size_type& i) const {
         constexpr uint8_t invert_list_cutoff = 0;
 
-        /// Python inverse list access through negative indices.
+        // Python inverse list access through negative indices.
         if (i < invert_list_cutoff) {
             return this->at(this->size() - i - 1);
         }
 
         return this->at(i);
+    }
+
+    [[nodiscard]] size_type len() const { // len in addition to std::vector::size()
+        return this->size();
+    }
+
+
+    void insert(const size_type& i, const value_type& val) { // insert by index rather than by iterator
+        this->insert(this->begin() + i, val);
     }
 };
 
