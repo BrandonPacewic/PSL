@@ -24,7 +24,7 @@ public:
     using iterator = typename std::vector<Tp>::iterator;
     using const_iterator = typename std::vector<Tp>::const_iterator;
 
-    list& operator+=(const value_type& val) { // push_back by += operator
+    list& operator+=(const value_type& val) {  // push_back by += operator
         this->push_back(val);
         return *this;
     }
@@ -51,12 +51,11 @@ public:
         return this->at(i);
     }
 
-    [[nodiscard]] size_type len() const { // len in addition to std::vector::size()
+    [[nodiscard]] size_type len() const {  // len in addition to std::vector::size()
         return this->size();
     }
 
-
-    void insert(const size_type& i, const value_type& val) { // insert by index rather than by iterator
+    void insert(const size_type& i, const value_type& val) {  // insert by index rather than by iterator
         this->insert(this->begin() + i, val);
     }
 };
